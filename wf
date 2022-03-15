@@ -4,13 +4,13 @@ if [ ! $1 ];then
   exit
 fi
 lang=${2:-pt}
-youtube-dl --write-auto-sub  --skip-download --sub-lang $lang -o '/tmp/l' $1
+youtube-dl --write-auto-sub  --skip-download --sub-lang $lang -o '/tmp/l' $1 > /dev/null
 ffmpeg -y -i /tmp/l.$lang.vtt /tmp/l.srt 
-sed -n '/[[:alpha:]]/p' /tmp/l.srt |
-  uniq |
-  sed 's/[[:cntrl:]]//g' |
-  uniq |
-  sed 's/[[:space:]]/\n/g' |
-  sort |
-  uniq -c |
-  sort -n
+sed -n '/[[:alpha:]]/p' /tmp/l.srt | #select only text
+  #uniq | #remove duplicated lines
+  sed 's/[[:cntrl:]]//g' | #remove linebreaks
+  uniq | #remove duplicated lines
+  sed 's/[[:space:]]/\n/g' | # split on spaces
+  sort | #sort words
+  uniq -c | #count words
+  sort -r -n #sort results
