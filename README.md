@@ -1,12 +1,15 @@
 # youtube-word-frequency
 
-###Uso:
+### Uso:
   
+  ```
   wf URL [lang]
+  ```
+  
   
 default lang = pt
 
-example vizualisation:
+### example vizualisation:
 https://mpcabete.github.io/youtube-word-frequency/
 
 to change example data in local repository:
