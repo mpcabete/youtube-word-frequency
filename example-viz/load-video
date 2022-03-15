@@ -1,9 +1,0 @@
-#!/bin/bash
-if [ ! $1 ];then
-  echo 'load-image URL'
-  exit
-fi
-SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
-
-youtube-dl -e $1 > $SCRIPT_DIR/title.txt
-$SCRIPT_DIR/../wf $1 > $SCRIPT_DIR/data.csv
