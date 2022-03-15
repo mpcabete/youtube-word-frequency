@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ ! $1 ];then
+  echo 'wf URL [LANG]'
+  exit
+fi
+lang=${2:-pt}
+youtube-dl --write-auto-sub  --skip-download --sub-lang $lang -o '/tmp/l' $1
+ffmpeg -y -i /tmp/l.$lang.vtt /tmp/l.srt 
+sed -n '/[[:alpha:]]/p' /tmp/l.srt |
+  uniq |
+  sed 's/[[:cntrl:]]//g' |
+  uniq |
+  sed 's/[[:space:]]/\n/g' |
+  sort |
+  uniq -c |
+  sort -n
